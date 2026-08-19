@@ -1,11 +1,15 @@
 import ResourceView from './ResourceView'
 
+const endpoint = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/teams/`
+  : 'http://localhost:8000/api/teams/'
+
 function Teams() {
   return (
     <ResourceView
       title="Teams"
       eyebrow="Groups"
-      endpoint="/api/teams/"
+      endpoint={endpoint}
       columns={[
         { label: 'Team', accessor: 'name' },
         { label: 'Mascot', accessor: 'mascot' },

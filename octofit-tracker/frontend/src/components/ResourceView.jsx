@@ -1,4 +1,4 @@
-import { useApiResource } from '../api'
+import { buildApiUrl, useApiResource } from '../api'
 
 function getValue(record, accessor) {
   if (typeof accessor === 'function') {
@@ -19,8 +19,9 @@ function getValue(record, accessor) {
 }
 
 function ResourceView({ title, eyebrow, endpoint, columns }) {
-  const { records, status, error, apiBaseUrl } = useApiResource(endpoint)
+  const { records, status, error } = useApiResource(endpoint)
   const headingId = `${endpoint.replace(/\W+/g, '-')}-heading`
+  const endpointUrl = buildApiUrl(endpoint)
 
   return (
     <section className="resource-view" aria-labelledby={headingId}>
@@ -32,7 +33,7 @@ function ResourceView({ title, eyebrow, endpoint, columns }) {
         <span className="record-count">{records.length} records</span>
       </div>
 
-      <p className="api-path">{apiBaseUrl}{endpoint.replace('/api', '')}</p>
+      <p className="api-path">{endpointUrl}</p>
 
       {status === 'loading' && <div className="notice">Loading {title.toLowerCase()}...</div>}
       {status === 'error' && <div className="notice error">{error}</div>}

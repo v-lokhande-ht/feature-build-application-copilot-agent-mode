@@ -8,6 +8,10 @@ export const apiBaseUrl = codespaceName
   : localhostApiBaseUrl
 
 export function buildApiUrl(endpoint) {
+  if (/^https?:\/\//.test(endpoint)) {
+    return endpoint
+  }
+
   const normalizedEndpoint = endpoint.startsWith('/api/')
     ? endpoint.replace('/api', '')
     : `/${endpoint.replace(/^\/+|\/+$/g, '')}/`
