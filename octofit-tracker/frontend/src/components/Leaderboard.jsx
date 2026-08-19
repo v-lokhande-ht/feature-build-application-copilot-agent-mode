@@ -5,7 +5,7 @@ function Leaderboard() {
     <ResourceView
       title="Leaderboard"
       eyebrow="Competition"
-      resourcePath="leaderboard"
+      endpoint="/api/leaderboard/"
       columns={[
         { label: 'Rank', accessor: (entry) => `#${entry.rank}` },
         { label: 'Points', accessor: 'points' },

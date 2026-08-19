@@ -5,7 +5,7 @@ function Activities() {
     <ResourceView
       title="Activities"
       eyebrow="Training Log"
-      resourcePath="activities"
+      endpoint="/api/activities/"
       columns={[
         { label: 'Activity', accessor: 'activityType' },
         { label: 'Duration', accessor: (activity) => `${activity.durationMinutes} min` },

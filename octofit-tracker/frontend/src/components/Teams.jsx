@@ -5,7 +5,7 @@ function Teams() {
     <ResourceView
       title="Teams"
       eyebrow="Groups"
-      resourcePath="teams"
+      endpoint="/api/teams/"
       columns={[
         { label: 'Team', accessor: 'name' },
         { label: 'Mascot', accessor: 'mascot' },

@@ -18,20 +18,21 @@ function getValue(record, accessor) {
   return value ?? 'Not set'
 }
 
-function ResourceView({ title, eyebrow, resourcePath, columns }) {
-  const { records, status, error, apiBaseUrl } = useApiResource(resourcePath)
+function ResourceView({ title, eyebrow, endpoint, columns }) {
+  const { records, status, error, apiBaseUrl } = useApiResource(endpoint)
+  const headingId = `${endpoint.replace(/\W+/g, '-')}-heading`
 
   return (
-    <section className="resource-view" aria-labelledby={`${resourcePath}-heading`}>
+    <section className="resource-view" aria-labelledby={headingId}>
       <div className="resource-heading">
         <div>
           <p className="eyebrow">{eyebrow}</p>
-          <h1 id={`${resourcePath}-heading`}>{title}</h1>
+          <h1 id={headingId}>{title}</h1>
         </div>
         <span className="record-count">{records.length} records</span>
       </div>
 
-      <p className="api-path">{apiBaseUrl}/{resourcePath}/</p>
+      <p className="api-path">{apiBaseUrl}{endpoint.replace('/api', '')}</p>
 
       {status === 'loading' && <div className="notice">Loading {title.toLowerCase()}...</div>}
       {status === 'error' && <div className="notice error">{error}</div>}

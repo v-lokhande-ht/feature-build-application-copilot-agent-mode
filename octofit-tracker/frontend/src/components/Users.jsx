@@ -5,7 +5,7 @@ function Users() {
     <ResourceView
       title="Users"
       eyebrow="Profiles"
-      resourcePath="users"
+      endpoint="/api/users/"
       columns={[
         { label: 'Name', accessor: 'displayName' },
         { label: 'Username', accessor: 'username' },

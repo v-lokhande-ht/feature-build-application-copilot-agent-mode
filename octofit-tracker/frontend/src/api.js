@@ -7,6 +7,14 @@ export const apiBaseUrl = codespaceName
   ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api`
   : localhostApiBaseUrl
 
+export function buildApiUrl(endpoint) {
+  const normalizedEndpoint = endpoint.startsWith('/api/')
+    ? endpoint.replace('/api', '')
+    : `/${endpoint.replace(/^\/+|\/+$/g, '')}/`
+
+  return `${apiBaseUrl}${normalizedEndpoint}`
+}
+
 export function normalizeApiResponse(payload) {
   if (Array.isArray(payload)) {
     return payload
@@ -31,7 +39,7 @@ export function normalizeApiResponse(payload) {
   return []
 }
 
-export function useApiResource(resourcePath) {
+export function useApiResource(endpoint) {
   const [records, setRecords] = useState([])
   const [status, setStatus] = useState('loading')
   const [error, setError] = useState('')
@@ -44,7 +52,7 @@ export function useApiResource(resourcePath) {
         setStatus('loading')
         setError('')
 
-        const response = await fetch(`${apiBaseUrl}/${resourcePath}/`, {
+        const response = await fetch(buildApiUrl(endpoint), {
           signal: controller.signal,
         })
 
@@ -70,7 +78,7 @@ export function useApiResource(resourcePath) {
     loadResource()
 
     return () => controller.abort()
-  }, [resourcePath])
+  }, [endpoint])
 
   return { records, status, error, apiBaseUrl }
 }

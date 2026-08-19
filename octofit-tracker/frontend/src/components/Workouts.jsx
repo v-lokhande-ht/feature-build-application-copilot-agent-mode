@@ -5,7 +5,7 @@ function Workouts() {
     <ResourceView
       title="Workouts"
       eyebrow="Suggestions"
-      resourcePath="workouts"
+      endpoint="/api/workouts/"
       columns={[
         { label: 'Workout', accessor: 'title' },
         { label: 'Focus', accessor: 'focus' },
